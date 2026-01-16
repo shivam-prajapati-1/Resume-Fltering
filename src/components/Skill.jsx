@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Swal from "sweetalert2";
 import {
   getSkills,
@@ -12,18 +12,34 @@ function Skill() {
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
 
-  useEffect(() => {
-    loadSkills();
-  }, []);
+  // useEffect(() => {
+    
+  //   loadSkills();
+  // }, []);
 
-  const loadSkills = async () => {
-    try {
-      const res = await getSkills();
-      setSkills(res.data);
-    } catch {
-      toast("error", "Failed to load skills");
-    }
-  };
+  // const loadSkills = async () => {
+  //   try {
+  //     const res = await getSkills();
+  //     setSkills(res.data);
+  //   } catch {
+  //     toast("error", "Failed to load skills");
+  //   }
+  // };
+
+
+const loadSkills = useCallback(async () => {
+  try {
+    const res = await getSkills();
+    setSkills(res.data);
+  } catch {
+    toast("error", "Failed to load skills");
+  }
+}, []);
+
+useEffect(() => {
+  loadSkills();
+}, [loadSkills]);
+
 
   const toast = (icon, title) => {
     Swal.fire({

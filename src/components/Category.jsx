@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Swal from "sweetalert2";
 import {
   getCategories,
@@ -12,18 +12,32 @@ function Category() {
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
 
-  useEffect(() => {
-    loadCategories();
-  }, []);
+  // useEffect(() => {
+  //   loadCategories();
+  // }, []);
 
-  const loadCategories = async () => {
-    try {
-      const res = await getCategories();
-      setCategories(res.data);
-    } catch {
-      toast("error", "Failed to load Categories");
-    }
-  };
+  // const loadCategories = async () => {
+  //   try {
+  //     const res = await getCategories();
+  //     setCategories(res.data);
+  //   } catch {
+  //     toast("error", "Failed to load Categories");
+  //   }
+  // };
+
+
+  const loadCategories = useCallback(async () => {
+  try {
+    const res = await getCategories();
+    setCategories(res.data);
+  } catch {
+    toast("error", "Failed to load Categories");
+  }
+}, []);
+
+useEffect(() => {
+  loadCategories();
+}, [loadCategories]);
 
   const toast = (icon, title) => {
     Swal.fire({
