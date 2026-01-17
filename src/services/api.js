@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://localhost:7094/api";
+const baseUrl = "https://backend-ebz9.onrender.com";
 
 /* ================= AUTH ================= */
 export const loginUser = (data) =>
