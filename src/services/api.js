@@ -4,7 +4,9 @@ const baseUrl = "https://backend-ebz9.onrender.com";
 
 /* ================= AUTH ================= */
 export const loginUser = (data) =>
-  axios.post(`${baseUrl}/auth/login`, data);
+  // axios.post(`${baseUrl}/auth/login`, data);
+axios.post(`${baseUrl}/api/auth/login`, data);
+
 
 /* ================= SKILLS ================= */
 export const getSkills = () => axios.get(`${baseUrl}/Skills`);
