@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Swal from "sweetalert2";
 import {
   getCategories,
@@ -25,27 +25,52 @@ function Resume() {
   const [experience, setExperience] = useState("");
   const [image, setImage] = useState(null);
 
-  /* ================= LOAD DATA ================= */
+ 
+
+  // const loadCategories = async () => {
+  //   const res = await getCategories();
+  //   setCategories(res.data);
+  // };
+
+  // const loadSkills = async () => {
+  //   const res = await getSkills();
+  //   setSkills(res.data);
+  // };
+
+  // const loadAllResumes = async () => {
+  //   const res = await getResumes(null, null);
+  //   setResumes(res.data);
+  // };
+
+
+  const loadCategories = useCallback(async () => {
+  const res = await getCategories();
+  setCategories(res.data);
+}, []);
+
+const loadSkills = useCallback(async () => {
+  const res = await getSkills();
+  setSkills(res.data);
+}, []);
+
+const loadAllResumes = useCallback(async () => {
+  const res = await getResumes(null, null);
+  setResumes(res.data);
+}, []);
+
+
+  // useEffect(() => {
+  //   loadCategories();
+  //   loadSkills();
+  //   loadAllResumes();
+  // }, []);
+
   useEffect(() => {
-    loadCategories();
-    loadSkills();
-    loadAllResumes();
-  }, []);
+  loadCategories();
+  loadSkills();
+  loadAllResumes();
+}, [loadCategories, loadSkills, loadAllResumes]);
 
-  const loadCategories = async () => {
-    const res = await getCategories();
-    setCategories(res.data);
-  };
-
-  const loadSkills = async () => {
-    const res = await getSkills();
-    setSkills(res.data);
-  };
-
-  const loadAllResumes = async () => {
-    const res = await getResumes(null, null);
-    setResumes(res.data);
-  };
 
   /* ================= FILTER ================= */
   const handleFilter = async () => {
